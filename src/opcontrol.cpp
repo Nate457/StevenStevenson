@@ -50,6 +50,8 @@ void opcontrol() {
 		{
 			expander1_piston.set_value(1);
 			expander2_piston.set_value(1);
+			expander3_piston.set_value(1);
+			expander4_piston.set_value(1);
 			regulateFlywheelSpeed.remove();
 			pros::delay(500);
 			flywheel_state = 0;
@@ -58,6 +60,14 @@ void opcontrol() {
 		{
 			expander1_piston.set_value(0);
 			expander2_piston.set_value(0);
+		}
+		if(master.get_digital_new_press(DIGITAL_X) && master.get_digital (DIGITAL_Y) && master.get_digital (DIGITAL_B) && master.get_digital (DIGITAL_A))
+		{
+			expander3_piston.set_value(1);
+			expander4_piston.set_value(1);
+			regulateFlywheelSpeed.remove();
+			pros::delay(500);
+			flywheel_state = 0;
 		}
 		
 	}
