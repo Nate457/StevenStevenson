@@ -12,18 +12,18 @@ void close_a() {
     vector center = {};
 
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 3394;
+    unsigned desiredSpeed = 3324;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
     move_straight(51, &center); delay(400); turn_roller(80); delay(400);
     move_straight(-3.3, &center);
     intake=0;
-    turn(-25, 25, 350.1, &center);
+    turn(-25, 25, 349.0, &center);
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
-    desiredSpeed = 3480;
+    desiredSpeed = 3400;
     pros::delay(450);
     shoot(1050);
     pros::delay(50);
@@ -35,7 +35,7 @@ void close_a() {
     desiredSpeed = 3241; 
     turn(-23, 23, 234, &center);
     pros::delay(100);
-    move_straight(43.5,41, &center);
+    move_straight(42.0,41, &center);
     pros::delay(310);
 
     // delay(50);
