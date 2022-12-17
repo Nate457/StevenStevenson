@@ -39,7 +39,7 @@ void prog_skills() {
     move_straight(-2.0, &center);
     turn(-25, 25, 237, &center);
     pros::delay(100);
-    move_straight(49.0,43, &center);
+    move_straight(49.0,48, &center);
     turn(30,-30, 320, &center);
     move_straight(2.5, &center);
     shoot(1300);

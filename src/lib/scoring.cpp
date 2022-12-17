@@ -21,9 +21,13 @@ const unsigned turn_roller(const int rate) {
     unsigned short currHue = optical_sensor.get_hue();
     unsigned short stHue = optical_sensor.get_hue();
     unsigned timeElapsed = 0;
+<<<<<<< Updated upstream
     if (stHue >= 150)
     {
     while ((currHue >= 150) && timeElapsed < 2700) {
+=======
+    while ((stHue - 10 <= currHue && currHue <= stHue + 10) && timeElapsed < 2500) {
+>>>>>>> Stashed changes
         roller = rate;
         currHue = optical_sensor.get_hue();
         timeElapsed += 10;

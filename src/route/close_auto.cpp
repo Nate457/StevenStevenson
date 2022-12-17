@@ -32,6 +32,7 @@ void close_a() {
 
 
     //pick up next 3 discs and shoot them
+<<<<<<< Updated upstream
     desiredSpeed = 3241; 
     turn(-23, 23, 234, &center);
     pros::delay(100);
@@ -61,6 +62,20 @@ void close_a() {
     move_straight(2.0, &center);
     pros::delay(500);
     shoot(1050);
+=======
+                        // desiredSpeed = 3241; 
+                        // turn(-23, 23, 234, &center);
+                        // pros::delay(100);
+                        // move_straight(43.5,41, &center);
+                        // pros::delay(310);
+
+
+                    
+                    // turn(35,-35, 314.5, &center);
+                    // move_straight(2.0, &center);
+                    // pros::delay(500);
+                    // shoot(1050);
+>>>>>>> Stashed changes
     //get 3 discs from low zone
     // turn(0,-30,0,&center);
     // move_straight(45,50,&center);
