@@ -27,6 +27,7 @@ void on_center_button() {
  */
 void initialize() {
 	flywheel_piston.set_value(0);
+	leveler.set_value(0);
 	imu_sensor.reset();
 	pros::lcd::register_btn1_cb(on_center_button);
 	selectorInit();

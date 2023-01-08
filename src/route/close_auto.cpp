@@ -12,30 +12,36 @@ void close_a() {
     vector center = {};
 
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 3394;
+    unsigned desiredSpeed = 2900;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
-    move_straight(51, &center); delay(400); turn_roller(80); delay(400);
-    move_straight(-3.3, &center);
-    intake=0;
-    turn(-25, 25, 350.1, &center);
+    move_straight(-1.5, &center); delay(200); turn_rollerN(false); delay(200);
+    move_straight(2.0, &center);
+    intake=127;
+    move_straight(6.9,  53.0, &center);
+    move_straight(-2.3,  -35.0, &center);
+    move_straight(2.0,  35.0, &center);
+
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
-    desiredSpeed = 3480;
-    pros::delay(450);
-    shoot(1050);
-    pros::delay(50);
-    intake = 127;
 
+    desiredSpeed = 2900;
+    pros::delay(450);
+    shoot(210);
+    pros::delay(50);
+    
+
+    intake = 127;
+    move_straight(-6.5,-41, &center);
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 3241; 
-    turn(-23, 23, 234, &center);
+    desiredSpeed = 2900; 
+    turn(23, -23, 55, &center);
     pros::delay(100);
-    move_straight(43.5,41, &center);
+    move_straight(36.5,41, &center);
     pros::delay(310);
 
     // delay(50);
@@ -57,10 +63,21 @@ void close_a() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(35,-35, 314.5, &center);
+    turn(-35,35, 343.4, &center);
     move_straight(2.0, &center);
     pros::delay(500);
-    shoot(1050);
+    shoot(250);
+    move_straight(5.0, &center);
+    move_straight(-2.3,  -35.0, &center);
+    move_straight(2.0,  35.0, &center);
+    pros::delay(666);
+     flywheel_piston.set_value(1);
+    pros::delay(240); 
+    flywheel_piston.set_value(0);
+    pros::delay(340); 
+    flywheel_piston.set_value(1);
+    pros::delay(240); 
+    flywheel_piston.set_value(0);
     //get 3 discs from low zone
     // turn(0,-30,0,&center);
     // move_straight(45,50,&center);

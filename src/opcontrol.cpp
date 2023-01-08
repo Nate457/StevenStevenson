@@ -5,42 +5,78 @@
 #include "lib/scoring.hpp"
 
 void opcontrol() {
-	unsigned shootingSpeed = 2200;
+	unsigned shootingSpeed = 2350;
 	pros::Task regulateFlywheelSpeed(regulateFlywheel_o, &shootingSpeed);
 	expander1_piston.set_value(0);
 	expander2_piston.set_value(0);
 	leveler.set_value(1);
+	indexer = 0;
 
 	flywheel_piston.set_value(0);
 	int intake_state=1;
 	int flywheel_state = 1;
 	while (true) {
-		shootingSpeed = 2455;
-		int power = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)*-1;
+		int power = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		int turnRate = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)*-1;
+
 		move(power - turnRate, power + turnRate);
-		if (master.get_digital(DIGITAL_R2))
- 		{
-			flywheel_piston.set_value(1);
-			intake=112;
-		}
-		else if(master.get_digital(DIGITAL_L1))
+		int auto_fire = 0;
+		if(master.get_digital_new_press(DIGITAL_R1))
 		{
-			intake=-127;
+			auto_fire = 1;
+			flywheel_piston.set_value(1);
+			pros::delay(180);
 			flywheel_piston.set_value(0);
+			pros::delay(180);
+			flywheel_piston.set_value(1);
+			pros::delay(180);
+			flywheel_piston.set_value(0);
+			pros::delay(180);
+			flywheel_piston.set_value(1);
+			pros::delay(180);
+			flywheel_piston.set_value(0);
+			auto_fire = 0;
+		}
+		else if (auto_fire == 0)
+{
+		if(master.get_digital(DIGITAL_R2))
+		{
+			flywheel_piston.set_value(1);
+			pros::delay(180);
+		}
+		else if (master.get_digital(DIGITAL_L2) == 0)
+		{
+			flywheel_piston.set_value(0);
+		}
+}
+		if(master.get_digital(DIGITAL_L1))
+		{
+		indexer = -127;
 		}
 		else if(master.get_digital(DIGITAL_L2))
 		{
-			flywheel_piston.set_value(0);
-			intake=0;
+		indexer = 127;
 		}
-		else 
-		{
-			flywheel_piston.set_value(0);
-			intake=127;
+		else{
+			indexer = 0;
 		}
+
+
+
+	if(master.get_digital_new_press(DIGITAL_X))
+	{
+			leveler.set_value(1);
+		}
+	if(master.get_digital_new_press(DIGITAL_Y))
+	{
+			leveler.set_value(0);
+		}
+
+
+
+
+
 		if (flywheel_state == 1){
-			shootingSpeed = 2455;
 		}
 		else{
 		flywheel = 0;

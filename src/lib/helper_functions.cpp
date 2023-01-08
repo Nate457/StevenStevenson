@@ -12,7 +12,7 @@
 #include <math.h>
 
 const double wheelDiam = 3.25;
-const double motorToWheelRatio = 3 / 5.0 / 0.8;
+const double motorToWheelRatio = 0.7;
 const double robotWidth = 12;
 
 inline void reset_drive_train() {
@@ -38,7 +38,7 @@ void setup_robot() {
  */
 double get_dist_travelled() {
     double degreesTravelled = (leftBackMotor.get_position() + rightBackMotor.get_position()) / 2;
-    return degreesTravelled * motorToWheelRatio / 360 * (M_PI*wheelDiam);
+    return degreesTravelled * motorToWheelRatio / 360 * (3.14159*wheelDiam);
 }
 
 /** Gets the heading of the robot from its gyro sensor
