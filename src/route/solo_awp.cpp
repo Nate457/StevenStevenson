@@ -10,7 +10,7 @@ using namespace pros;
 void solo_awp() {
     // initial setup
     vector center = {};
-
+    leveler.set_value(0);
     unsigned timeElapsed = 0;
     unsigned desiredSpeed = 2900;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);

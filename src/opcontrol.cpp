@@ -5,7 +5,7 @@
 #include "lib/scoring.hpp"
 
 void opcontrol() {
-	unsigned shootingSpeed = 2350;
+	unsigned shootingSpeed = 2178;
 	pros::Task regulateFlywheelSpeed(regulateFlywheel_o, &shootingSpeed);
 	expander1_piston.set_value(0);
 	expander2_piston.set_value(0);
@@ -25,15 +25,15 @@ void opcontrol() {
 		{
 			auto_fire = 1;
 			flywheel_piston.set_value(1);
-			pros::delay(180);
+			pros::delay(245);
 			flywheel_piston.set_value(0);
-			pros::delay(180);
+			pros::delay(215);
 			flywheel_piston.set_value(1);
-			pros::delay(180);
+			pros::delay(245);
 			flywheel_piston.set_value(0);
-			pros::delay(180);
+			pros::delay(215);
 			flywheel_piston.set_value(1);
-			pros::delay(180);
+			pros::delay(245);
 			flywheel_piston.set_value(0);
 			auto_fire = 0;
 		}
@@ -55,10 +55,10 @@ void opcontrol() {
 		}
 		else if(master.get_digital(DIGITAL_L2))
 		{
-		indexer = 127;
+		indexer = 0;
 		}
 		else{
-			indexer = 0;
+			indexer = 127;
 		}
 
 

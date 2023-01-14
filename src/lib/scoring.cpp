@@ -142,7 +142,7 @@ void regulateFlywheel_o(void *param) {
         desiredSpeed = *static_cast<unsigned*>(param);
         //master.print(0, 0, "%f", currSpeed);
         currSpeed = std::abs(flywheel.get_actual_velocity()) * motorToFlywheel;
-        flywheel = 115+PID(currSpeed, desiredSpeed, 0.13, 0.00, 0.00, prevError, integral);
+        flywheel = 115+PID(currSpeed, desiredSpeed, 0.08, 0.00, 0.00, prevError, integral);
         pros::delay(25);
     }
 }
