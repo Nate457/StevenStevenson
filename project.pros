@@ -311,7 +311,7 @@
     "upload_options": {
       "description": "Regular Code",
       "icon": "clawbot",
-      "slot": 3
+      "slot": 1
     }
   }
 }

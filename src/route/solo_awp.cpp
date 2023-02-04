@@ -8,41 +8,39 @@
 using namespace pros;
 
 void solo_awp() {
-    // initial setup
+       // initial setup
     vector center = {};
-    leveler.set_value(0);
+    leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2900;
+    unsigned desiredSpeed = 2700;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
-    move_straight(-1.5, &center); delay(200); turn_rollerN(false); delay(200);
+    move_straight(-1.1, &center); delay(200); turn_rollerN(false); delay(200);
     move_straight(2.0, &center);
     intake=127;
-    move_straight(6.9,  53.0, &center);
-    move_straight(-2.3,  -35.0, &center);
-    move_straight(2.0,  35.0, &center);
+    move_straight(2.5,  57.0, &center);
+    turn(-25, 25, 345, &center);
 
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
 
-    desiredSpeed = 2900;
-    pros::delay(450);
-    shoot(210);
-    pros::delay(50);
+    desiredSpeed = 2700;
+    pros::delay(350);
+    shoot(495);
     
 
     intake = 127;
-    move_straight(-6.5,-41, &center);
+    move_straight(-2.4,-52, &center);
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 2900; 
-    turn(23, -23, 55, &center);
+    desiredSpeed = 2700; 
+    turn(23, -23, 42, &center);
     pros::delay(100);
-    move_straight(36.5,41, &center);
-    pros::delay(310);
+    move_straight(34.2,50, &center);
+    pros::delay(210);
 
     // delay(50);
     
@@ -63,56 +61,31 @@ void solo_awp() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(-35,35, 343.4, &center);
-    move_straight(2.0, &center);
-    pros::delay(500);
-    shoot(250);
-    move_straight(-2.5, &center);
-    turn(35,-35, 46.0, &center);
-    move_straight(39.5,41, &center);
-    turn(-35,35, 323.4, &center);
-    shoot(220);
-    turn(-35,35, 233.4, &center);
-    intake = 0;
-    move_straight(-26.5,-41, &center);
-    turn(0,-35, 270.4, &center);
-    move_straight(-1.5, &center); delay(200); turn_rollerN(false); delay(200);
+    turn(-21,21, 324.8, &center);
+    pros::delay(200);
+    move_straight(4.0,  39.0, &center);
+    pros::delay(200);
+    shoot(1450);
+    intake = 127;
+    turn(31,-31, 34, &center);
+    move_straight(50.3, 75.0, &center);
+    turn(-26,26, 285, &center);
+    move_straight(0.8,-35); delay(200); turn_rollerN(false); delay(200);
 
 
+    // desiredSpeed = 2720;
+    // move_straight(1, 61.0, &center);
+    // turn(-29,29,90,&center);
+    // //pickup discs next to the goal
+    // intake=127;
+    // move_straight(43.0, 80.0, &center);
+    // move_straight(-40.0,-61.0,&center);
+    // turn(29,-29,135.0,&center);
+    // move_straight(-5.0,-61.0,&center);
+    // shoot(800);
 
+    // cleanup program
 
-    //get 3 discs from low zone
-    // turn(0,-30,0,&center);
-    // move_straight(45,50,&center);
-    // move_straight(-45,-50,&center);
-    // turn(-25,25,315,&center);
-    // flywheel_piston.set_value(1); delay(1300); flywheel_piston.set_value(0);
-
-
-
-    // turn(-35,35, 232,&center);
-    // pros::delay(80);
-    
-    // // pick up stack of 3 discs and shoot them (maybe)
-    // move_straight(75.0, 35, &center);
-    // turn(25,-25, 308, &center);
-    // pros::delay(80);
-    // flywheel_piston.set_value(1); delay(1200); flywheel_piston.set_value(0);
-    // turn(-25,25, 239, &center);
-    // pros::delay(80);
-
-    // // turn 2nd roller
-    // pros::delay(100);
-    // // move_straight(75.0, 35, &center);
-    // // pros::delay(80);
-    // // turn(35,-35, 270, &center);
-    // pros::delay(80);
-    // move_straight(60); turn_roller(100);
-
-
-   
     regulate_shooting_speed.remove();
- 
-    master.print(0, 0, "%d", timeElapsed);
-
+    regulate_shooting_speed = (pros::task_t)NULL;
 }

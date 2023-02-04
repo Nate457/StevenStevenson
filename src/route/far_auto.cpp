@@ -10,33 +10,36 @@ using namespace pros;
 void far_auto() {
     // initial setup
     vector center = {};
+    leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 3394;
+    unsigned desiredSpeed = 2910;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // turn roller
-    move_straight(15.9, &center);
-    turn(35, 0, 89, &center);
-    move_straight(51, &center); delay(400); turn_roller(80); delay(400);
-    
+    intake = 127;
+    move_straight(-7.0, -48, &center);
+    turn(0, -34, 99, &center);
+    move_straight(-1.0, &center); delay(200); turn_rollerN(false); delay(200);
+    intake = 127;
     // shoot preloads
-    move_straight(-3.0, &center);
-    turn(29, -29, 93, &center);
+    move_straight(5.6, &center);
     while (desiredSpeed != INT16_MAX) {
-        delay(15);
+        delay(10);
     }
-    desiredSpeed = 3480;
-    shoot(700);
-    move_straight(3.0, 60.0,&center);
-    desiredSpeed = 3205;
+    desiredSpeed = 2900;
+    turn(-27, 27, 96, &center);
+    shoot(530);
+    move_straight(-2.8,-41, &center);
+    desiredSpeed = 2845;
 
     // pick up row of 3 discs
     intake = 127;
-    turn(29,-29,219,&center);
-    move_straight(67.3, 55.0, &center);
-    turn(-29,29,141.6,&center);
+    turn(-29,29,45,&center);
+    move_straight(45.3, 55.0, &center);
+    turn(23,-23, 116.4,&center);
     move_straight(1.5, 50.0,&center);
-    shoot(800);
+    pros::delay(550);
+    shoot(830);
     // desiredSpeed = 2720;
     // move_straight(1, 61.0, &center);
     // turn(-29,29,90,&center);
@@ -51,6 +54,5 @@ void far_auto() {
     // cleanup program
 
     regulate_shooting_speed.remove();
-
-    master.print(0, 0, "%d", timeElapsed);
+    regulate_shooting_speed = (pros::task_t)NULL;
  }

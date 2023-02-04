@@ -66,12 +66,14 @@ const unsigned turn_roller2(const int rate) {
 }
 void turn_rollerN(bool full)
 {
-    move(-18, -18);
+    move(-21, -21);
     double startEncoder = intake.get_position();
     if (full){
-        while (intake.get_position()< 920 + startEncoder){
+        while (intake.get_position() < 1100 + startEncoder){
             intake = 115;
         }
+    intake = 0;
+    move(0,0);
     }
     else {
      while(intake.get_position() < 460 + startEncoder){
@@ -126,7 +128,7 @@ void regulateFlywheel(void *param) {
         //master.print(0, 0, "%f", currSpeed);
         currSpeed = std::abs(flywheel.get_actual_velocity()) * motorToFlywheel;
         flywheel = 113+PID2(currSpeed, desiredSpeed, 0.33, 0.08, 0.08, prevError, integral);
-        pros::delay(35);
+        pros::delay(21);
     }
 }
 void regulateFlywheel_o(void *param) {
@@ -142,8 +144,8 @@ void regulateFlywheel_o(void *param) {
         desiredSpeed = *static_cast<unsigned*>(param);
         //master.print(0, 0, "%f", currSpeed);
         currSpeed = std::abs(flywheel.get_actual_velocity()) * motorToFlywheel;
-        flywheel = 115+PID(currSpeed, desiredSpeed, 0.08, 0.00, 0.00, prevError, integral);
-        pros::delay(25);
+        flywheel = 115+PID(currSpeed, desiredSpeed, 0.085, 0.00, 0.00, prevError, integral);
+        pros::delay(15);
     }
 }
 void regulateFlywheel_2(void *param) {
@@ -167,15 +169,9 @@ void regulateFlywheel_2(void *param) {
  * @param gateDelay the number of milliseconds to open the gate for
 */
 void shoot(const unsigned gateDelay) {
-    flywheel_piston.set_value(1);
-    pros::delay(gateDelay); 
-    flywheel_piston.set_value(0);
-    pros::delay(340); 
-    flywheel_piston.set_value(1);
-    pros::delay(gateDelay); 
-    flywheel_piston.set_value(0);
-    pros::delay(340); 
-    flywheel_piston.set_value(1);
-    pros::delay(gateDelay); 
-    flywheel_piston.set_value(0);
+    intake = 0;
+    intake.move_relative(-1000, -110);
+    pros::delay(gateDelay);
+
+
 }

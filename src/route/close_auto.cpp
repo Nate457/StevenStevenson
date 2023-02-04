@@ -10,39 +10,37 @@ using namespace pros;
 void close_a() {
     // initial setup
     vector center = {};
-
+    leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2900;
+    unsigned desiredSpeed = 2700;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
-    move_straight(-1.5, &center); delay(200); turn_rollerN(false); delay(200);
+    move_straight(-1.1, &center); delay(200); turn_rollerN(false); delay(200);
     move_straight(2.0, &center);
     intake=127;
-    move_straight(6.9,  53.0, &center);
-    move_straight(-2.3,  -35.0, &center);
-    move_straight(2.0,  35.0, &center);
+    move_straight(3.5,  57.0, &center);
+    turn(-24, 24, 345, &center);
 
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
 
-    desiredSpeed = 2900;
+    desiredSpeed = 2700;
     pros::delay(450);
-    shoot(210);
-    pros::delay(50);
+    shoot(780);
     
 
     intake = 127;
-    move_straight(-6.5,-41, &center);
+    move_straight(-3.4,-41, &center);
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 2900; 
-    turn(23, -23, 55, &center);
+    desiredSpeed = 2700; 
+    turn(23, -23, 42, &center);
     pros::delay(100);
-    move_straight(36.5,41, &center);
-    pros::delay(310);
+    move_straight(35.7,41, &center);
+    pros::delay(610);
 
     // delay(50);
     
@@ -63,21 +61,11 @@ void close_a() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(-35,35, 343.4, &center);
-    move_straight(2.0, &center);
-    pros::delay(500);
-    shoot(250);
-    move_straight(5.0, &center);
-    move_straight(-2.3,  -35.0, &center);
-    move_straight(2.0,  35.0, &center);
-    pros::delay(666);
-     flywheel_piston.set_value(1);
-    pros::delay(240); 
-    flywheel_piston.set_value(0);
-    pros::delay(340); 
-    flywheel_piston.set_value(1);
-    pros::delay(240); 
-    flywheel_piston.set_value(0);
+    turn(-21,21, 324.8, &center);
+    pros::delay(400);
+    move_straight(4.0,  35.0, &center);
+    pros::delay(400);
+    shoot(1550);
     //get 3 discs from low zone
     // turn(0,-30,0,&center);
     // move_straight(45,50,&center);
@@ -109,7 +97,7 @@ void close_a() {
 
    
     regulate_shooting_speed.remove();
- 
-    master.print(0, 0, "%d", timeElapsed);
+    regulate_shooting_speed = (pros::task_t)NULL;
+
 
 }
