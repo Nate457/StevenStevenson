@@ -12,35 +12,35 @@ void solo_awp() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2700;
+    unsigned desiredSpeed = 2635;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
-    move_straight(-1.1, &center); delay(200); turn_rollerN(false); delay(200);
-    move_straight(2.0, &center);
+    move_straight(-0.8, &center); delay(100); turn_rollerN(false); delay(100);
+    move_straight(2.0, 60.0, &center);
     intake=127;
-    move_straight(2.5,  57.0, &center);
-    turn(-25, 25, 345, &center);
+    move_straight(3.5,  61.0, &center);
+    turn(-36, 36, 355.5, &center);
 
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
+    desiredSpeed = 2635;
 
-    desiredSpeed = 2700;
-    pros::delay(350);
-    shoot(495);
+    pros::delay(100);
+    shoot(450);
     
 
     intake = 127;
-    move_straight(-2.4,-52, &center);
+    move_straight(-2.4,-59, &center);
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 2700; 
-    turn(23, -23, 42, &center);
-    pros::delay(100);
-    move_straight(34.2,50, &center);
-    pros::delay(210);
+    desiredSpeed = 2465; 
+    turn(35, -35, 42, &center);
+    pros::delay(60);
+    move_straight(29.0,64, &center);
+    pros::delay(280);
 
     // delay(50);
     
@@ -61,16 +61,17 @@ void solo_awp() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(-21,21, 324.8, &center);
-    pros::delay(200);
-    move_straight(4.0,  39.0, &center);
-    pros::delay(200);
-    shoot(1450);
+    turn(-37,37, 333.4, &center);
+    pros::delay(50);
+    move_straight(1.8,  51.0, &center);
+    pros::delay(80);
+    shoot(410);
     intake = 127;
-    turn(31,-31, 34, &center);
-    move_straight(50.3, 75.0, &center);
-    turn(-26,26, 285, &center);
-    move_straight(0.8,-35); delay(200); turn_rollerN(false); delay(200);
+    turn(32,-32, 34.5, &center);
+    move_straight(46.5, 86.0, &center);
+    turn(-31,31, 285, &center);
+    intake = 0;
+    move_straight(0.65,-45); delay(50); turn_rollerN(false); delay(100);
 
 
     // desiredSpeed = 2720;

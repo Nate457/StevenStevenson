@@ -24,7 +24,7 @@ pros::Optical optical_sensor(2);
 
 // pneumatics pistons
 pros::ADIDigitalOut expander1_piston({{6, 8}});
-pros::ADIDigitalOut expander2_piston({{6, 7}});
+pros::ADIDigitalOut expander2_piston(8);
 pros::ADIDigitalOut side_piston(7);
 pros::ADIDigitalOut side2_piston(6);
 pros::ADIDigitalOut side3_piston(5);
@@ -32,6 +32,6 @@ pros::ADIDigitalOut side4_piston(4);
 pros::ADIDigitalOut side5_piston(3);
 pros::ADIDigitalOut side6_piston(2);
 pros::ADIDigitalOut leveler(1, 1);
-pros::ADIDigitalOut flywheel_piston(8,1);  // the gate for the flywheel
+pros::ADIDigitalOut flywheel_piston({{6, 7}});  // the gate for the flywheel
 
 int autonSelection = SKILLS; // default auton selected

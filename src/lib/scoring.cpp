@@ -69,7 +69,7 @@ void turn_rollerN(bool full)
     move(-21, -21);
     double startEncoder = intake.get_position();
     if (full){
-        while (intake.get_position() < 1100 + startEncoder){
+        while (intake.get_position() < 800 + startEncoder){
             intake = 115;
         }
     intake = 0;
@@ -170,8 +170,10 @@ void regulateFlywheel_2(void *param) {
 */
 void shoot(const unsigned gateDelay) {
     intake = 0;
-    intake.move_relative(-1000, -110);
-    pros::delay(gateDelay);
-
-
+    indexer.move_relative(-110, -550);
+	pros::delay(gateDelay);
+    indexer.move_relative(-110, -550);
+	pros::delay(gateDelay);
+    indexer.move_relative(-130, -550);
+	pros::delay(gateDelay+80);
 }

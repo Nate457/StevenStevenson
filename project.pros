@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "prog skills???",
+    "project_name": "Stale Mate",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -310,7 +310,7 @@
     },
     "upload_options": {
       "description": "Regular Code",
-      "icon": "clawbot",
+      "icon": "ufo",
       "slot": 1
     }
   }

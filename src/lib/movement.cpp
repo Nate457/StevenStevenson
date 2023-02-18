@@ -38,10 +38,10 @@ void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, 
         if (currAngle < desiredAngle) {
             while (currAngle < desiredAngle) { 
                 currAngle = imu_sensor.get_heading();         
-                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
-                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.3, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.3, 0, 0, prevErrorHeading, integralHeading));
                 
-                pros::delay(15);
+                pros::delay(8);
             }
         }
         else if (currAngle > desiredAngle) {
@@ -53,11 +53,11 @@ void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, 
                     prevAngle = imu_sensor.get_heading();
                 currAngle += imu_sensor.get_heading() - prevAngle;
                 
-                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
-                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.3, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.3, 0, 0, prevErrorHeading, integralHeading));
                 
                 prevAngle = imu_sensor.get_heading();  
-                pros::delay(15);
+                pros::delay(8);
             }
         }
     }
@@ -71,11 +71,11 @@ void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, 
                     prevAngle = imu_sensor.get_heading();
                 currAngle += imu_sensor.get_heading() - prevAngle;
                 
-                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
-                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.2, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.2, 0, 0, prevErrorHeading, integralHeading));
                 
                 prevAngle = imu_sensor.get_heading();
-                pros::delay(15);
+                pros::delay(8);
             }
         }
         else if (currAngle < 360 && currAngle > desiredAngle) {
@@ -84,10 +84,10 @@ void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, 
             
             while (currAngle > desiredAngle) {
                 currAngle = imu_sensor.get_heading() - 360;
-                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
-                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.2, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.2, 0, 0, prevErrorHeading, integralHeading));
                 
-                pros::delay(15);
+                pros::delay(8);
             }
         }
     }
@@ -113,17 +113,17 @@ void move_straight(const double desiredDist, vector *pCenter, decltype(MOTOR_BRA
         const double volt = (desiredDist < 0) ? PID(currDist, desiredDist, 2, 0, -0.2, prevErrorDist, integralDist) - baseVolt
                                             : PID(currDist, desiredDist, 2, 0, -0.2, prevErrorDist, integralDist) + baseVolt;
         if (pCenter->desiredHeading > 180)
-            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.6, 0.01, 1, prevErrorHeading, integralHeading), 
-                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.6, 0.01, 1, prevErrorHeading, integralHeading));
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 1.5, 0.01, 1, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 1.5, 0.01, 1, prevErrorHeading, integralHeading));
         else
-            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading), 
-                volt - PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading));
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 1.5, 0.01, 1, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 1.5, 0.01, 1, prevErrorHeading, integralHeading));
 
         currDist += (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/2 
                     * motorToWheelRatio/360*(M_PI*wheelDiam);
         
         prevLeftPos = leftMidMotor.get_position(), prevRightPos = rightMidMotor.get_position();
-        pros::delay(15);
+        pros::delay(8);
     }
     if (stopType == MOTOR_BRAKE_BRAKE)
         move(stopType, stopType);
@@ -139,17 +139,17 @@ void move_straight(const double desiredDist, const int volt, vector *pCenter, de
     int prevErrorHeading = 0, integralHeading = 0;
     while (abs(currDist) < abs(desiredDist)) {
         if (pCenter->desiredHeading > 180)
-            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.6, 0.01, 1, prevErrorHeading, integralHeading), 
-                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.6, 0.01, 1, prevErrorHeading, integralHeading));
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 1.0, 0.01, 1, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 1.0, 0.01, 1, prevErrorHeading, integralHeading));
         else
-            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading), 
-                volt - PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading));
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 1.0, 0.01, 1, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 1.0, 0.01, 1, prevErrorHeading, integralHeading));
         
         currDist += (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/2 
                     * motorToWheelRatio/360*(M_PI*wheelDiam);
         
         prevLeftPos = leftMidMotor.get_position(), prevRightPos = rightMidMotor.get_position();
-        pros::delay(15);
+        pros::delay(8);
     }
     if (stopType == MOTOR_BRAKE_BRAKE)
         move(stopType, stopType);
@@ -187,7 +187,7 @@ void move_straight(const int volt, vector* pCenter) {
         else
             move(volt + PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading), 
                 volt - PID(get_heading(), pCenter->desiredHeading, 0.6, 0.01, 1, prevErrorHeading, integralHeading));
-        pros::delay(15);
+        pros::delay(8);
     }
     move(MOTOR_BRAKE_HOLD, MOTOR_BRAKE_HOLD);
     pros::delay(100);

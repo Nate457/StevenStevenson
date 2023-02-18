@@ -5,9 +5,9 @@
 #include "lib/scoring.hpp"
 
 void opcontrol() {
-	unsigned shootingSpeed = 1900;
+	unsigned shootingSpeed = 1640;
 	pros::Task regulateFlywheelSpeed(regulateFlywheel_o, &shootingSpeed);
-	leveler.set_value(0);
+			leveler.set_value(0);
 			expander1_piston.set_value(0);
 			expander2_piston.set_value(0);
 			side_piston.set_value(0);
@@ -16,6 +16,7 @@ void opcontrol() {
 			side4_piston.set_value(0);
 			side3_piston.set_value(0);
 			side4_piston.set_value(0);
+			bool leveled = 0;
 
 	indexer = 0;
 
@@ -30,7 +31,7 @@ void opcontrol() {
 		int auto_fire = 0;
 
 
-		if(master.get_digital(DIGITAL_L1))
+		if(master.get_digital(DIGITAL_R2))
 		{
 		indexer = -127;
 		}
@@ -47,14 +48,23 @@ void opcontrol() {
 
 
 
-	if(master.get_digital_new_press(DIGITAL_R2))
+	if(master.get_digital_new_press(DIGITAL_L1))
 	{
-			leveler.set_value(1);
-		}
+			if (leveled)
+			{
+			leveler.set_value(0);
+			leveled = 0;
+			}
+			else{
+				leveler.set_value(1);
+				leveled = 1;
+			}
+			}
 	if(master.get_digital_new_press(DIGITAL_R1))
 	{
-			leveler.set_value(0);
-		}
+			indexer.move_relative(-250, -550);
+			pros::delay(250);
+	}
 
 		if (flywheel_state == 1){
 		}
@@ -62,25 +72,25 @@ void opcontrol() {
 		flywheel = 0;
 		shootingSpeed = 0;
 		}
-		if(master.get_digital_new_press(DIGITAL_UP) && master.get_digital (DIGITAL_DOWN) && master.get_digital (DIGITAL_RIGHT) && master.get_digital (DIGITAL_LEFT))
+		if(master.get_digital (DIGITAL_DOWN) &&  master.get_digital (DIGITAL_RIGHT))
 		{
 			expander1_piston.set_value(1);
-			pros::delay(20);
-			expander2_piston.set_value(1);
 			pros::delay(20);
 			side_piston.set_value(1);
 			pros::delay(20);
 			side2_piston.set_value(1);
 			pros::delay(20);
-			side3_piston.set_value(1);
-			pros::delay(20);
 			side4_piston.set_value(1);
 			pros::delay(20);
+			side5_piston.set_value(1);
+			pros::delay(20);
+			side6_piston.set_value(1);
+			pros::delay(1000);
+			expander2_piston.set_value(1);
+			pros::delay(20);
 			side3_piston.set_value(1);
 			pros::delay(20);
-			side4_piston.set_value(1);
-			pros::delay(70);
 			flywheel_state = 0;
 		}
-	}
+	}  
 }
