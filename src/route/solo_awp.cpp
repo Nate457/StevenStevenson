@@ -61,15 +61,15 @@ void solo_awp() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(-37,37, 333.4, &center);
+    turn(-37,37, 334.4, &center);
     pros::delay(50);
     move_straight(1.8,  51.0, &center);
     pros::delay(80);
     shoot(410);
     intake = 127;
-    turn(32,-32, 34.5, &center);
-    move_straight(46.5, 86.0, &center);
-    turn(-31,31, 285, &center);
+    turn(32,-32, 43.0, &center);
+    move_straight(52.5, 86.0, &center);
+    turn(-29,29, 283, &center);
     intake = 0;
     move_straight(0.65,-45); delay(50); turn_rollerN(false); delay(100);
 
