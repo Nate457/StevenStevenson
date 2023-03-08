@@ -12,7 +12,7 @@ void close_a() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2635;
+    unsigned desiredSpeed = 2720;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
@@ -25,10 +25,10 @@ void close_a() {
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
-    desiredSpeed = 2635;
+    desiredSpeed = 2720;
 
     pros::delay(100);
-    shoot(450);
+    shoot(580);
     
 
     intake = 127;
@@ -36,10 +36,10 @@ void close_a() {
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 2465; 
-    turn(35, -35, 42, &center);
+    desiredSpeed = 2559; 
+    turn(31, -31, 43, &center);
     pros::delay(60);
-    move_straight(23.0,64, &center);
+    move_straight(18.0,64, &center);
     pros::delay(280);
 
     // delay(50);
@@ -61,16 +61,16 @@ void close_a() {
     // move_straight(60.0, 22, &center);
     // pros::delay(20);
     
-    turn(-37,37, 335.2, &center);
+    turn(-23,23, 331.3, &center);
     pros::delay(50);
-    move_straight(1.8,  51.0, &center);
     pros::delay(80);
-    shoot(410);
+    shoot(560);
+    desiredSpeed = 2475; 
     intake = 127;
     pros::delay(380);
-    move_straight(1.3,  38.0, &center);
-    pros::delay(880);
-    shoot(410);
+    move_straight(4.9,  38.0, &center);
+    pros::delay(1080);
+    shoot(560);
 
     regulate_shooting_speed.remove();
     regulate_shooting_speed = (pros::task_t)NULL;

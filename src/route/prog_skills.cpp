@@ -12,120 +12,149 @@ void prog_skills() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 1730;
+    unsigned desiredSpeed = 1961;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
      while (desiredSpeed != INT16_MAX) {
         delay(12);
     }
-    shoot(270);
-    desiredSpeed = 2160;
+    desiredSpeed = 1961;
+    intake = 0;
+    indexer.move_relative(-120, -580);
+	pros::delay(510);
+    indexer.move_relative(-120, -580);
+    pros::delay(450);
+    desiredSpeed = 2090;
     intake = 127;
 
-    move_straight(-32.7, -53.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(0, -32, 90, &center);
+    move_straight(-28.6, -65.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(0, -36, 90, &center);
     intake = 0;
-    move_straight(0.6, -41.0); delay(200); turn_rollerN(true); delay(200);
+    move_straight(0.33, -60.0); delay(50); turn_rollerN(true); delay(50);
     intake = 127;
     
     //pick up first stack turn second roller 
-    move_straight(24.2, 37.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(-30, 0, 8, &center);
+    move_straight(24.06, 38.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(-33, 0, 6, &center);
     intake = 0;
-    move_straight(1.6, -49.0); delay(200); turn_rollerN(true); delay(200);
+    move_straight(1.31, -53.0); delay(50); turn_rollerN(true); delay(50);
 
 
     //shoot
-    move_straight(2.9, 49.0, &center);
+    move_straight(2.4, 58.0, &center);
     intake = 127;
-    turn(23, -23, 85.4, &center);
-    move_straight(27.4, 51.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(23, -23, 85.5, &center);
+    move_straight(21.0, 74.0, &center, MOTOR_BRAKE_BRAKE);
     pros::delay(450);
-    shoot(360);
+    shoot(320);
 
-    desiredSpeed = 2260;
+    desiredSpeed = 2195;
     // go back
-    turn(0, -28, 90, &center);
+    turn2(20, -28, 90, &center);
     intake = 127;
-    move_straight(-22.2, -51.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(-23, 23, 45, &center);
+    move_straight(-27.3, -54.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(-23, 23, 45, &center);
 
     // pick up and shoot x 2
-    move_straight(33.0, 45.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(24, -24, 114, &center);
-    pros::delay(550);
-    shoot(410);
-    turn(-23, 23, 48, &center);
+    move_straight(28.5, 55.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(24, -24, 109.85, &center);
+    pros::delay(450);
+    shoot(320);
+    desiredSpeed = 2060;
+    turn2(-24, 24, 48, &center);
     intake = 127;
-    move_straight(53.0, 51.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(20, -20, 111, &center);
+    move_straight(47.0, 55.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(22, -22, 141, &center);
     pros::delay(200);
-    turn(19, -19, 174.2, &center);
-    move_straight(19.0, 51.0, &center, MOTOR_BRAKE_BRAKE);
-    shoot(410);
+    turn2(20, -20, 173.15, &center);
+    move_straight(14.0, 54.0, &center, MOTOR_BRAKE_BRAKE);
+    shoot(320);
     intake = 127;
-    turn(19, -19, 175.5, &center);
+    turn2(22, -22, 181.5, &center);
 
     // third roller
-    move_straight(-26.0, -51.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(0, -29, 272, &center);
+    move_straight(-27.8, -56.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(0, -30, 272, &center);
     intake = 0;
-    move_straight(2.2, -45.0); delay(100); turn_rollerN(true); delay(100);
+    move_straight(1.53, -60.0); delay(50); turn_rollerN(true); delay(50);
 
     //pick up stack turn fourth roller 
     intake = 127;
-    move_straight(22.8, 37.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(-30, 0, 184, &center);
+    move_straight(21.4, 36.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(-30, 0, 184, &center);
     intake = 0;
-    move_straight(3.4, -41.0); delay(100); turn_rollerN(true); delay(100);
+    move_straight(2.25, -60.0); delay(50); turn_rollerN(true); delay(50);
 
     
     //shoot
-    move_straight(3.2, 49.0, &center);
-    desiredSpeed = 2140;
+    move_straight(2.9, 50.0, &center);
+    desiredSpeed = 2110;
     intake = 127;
-    turn(24, 0, 220, &center);
-    pros::delay(200);
-    turn(24, 0, 265.9, &center);
-    move_straight(25.0, 51.0, &center, MOTOR_BRAKE_BRAKE);
-    shoot(360);
+    turn2(26, 0, 221, &center);
+    pros::delay(100);
+    turn2(26, 0, 267.9, &center);
+    move_straight(15.5, 60.0, &center, MOTOR_BRAKE_BRAKE);
+    shoot(320);
     intake = 127;
 
     // go back
-    desiredSpeed = 2200;
-    move_straight(-22.3, -53.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(-23, 23, 225, &center);
+    desiredSpeed = 2250;
+    move_straight(-26.3, -55.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(-23, 23, 224, &center);
 
     // pick up and shoot x 2
-    move_straight(30.9, 41.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(23, -23, 295, &center);
-    pros::delay(550);
-    shoot(360);
+    move_straight(28.6, 54.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(24, -24, 292.8, &center);
+    pros::delay(450);
+    shoot(320);
     intake = 127;
-    turn(-23, 23, 225, &center);
-    move_straight(54.5, 64.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(23, -23, 354, &center);
+    desiredSpeed = 2600;
+    pros::delay(200);
+    turn2(-25, 25, 225, &center);
+    move_straight(55.5, 65.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(25, -25, 339.4, &center);
+    shoot(320);
+
 
     // go to mid line
+    intake = 127;
+    desiredSpeed = 2605;
+    move_straight(-10.1, -65.0, &center, MOTOR_BRAKE_BRAKE);
+    turn2(24, -24, 32.6, &center);
+    // move_straight(69.5, 65.0, &center, MOTOR_BRAKE_BRAKE);
+    // turn2(24, -24, 128.2, &center);
+    // pros::delay(150);
+    // shoot(450);
 
-    move_straight(-8.0, -58.0, &center, MOTOR_BRAKE_BRAKE);
-    turn(23, -23, 40.5, &center);
+    // intake = 127;
+    // turn2(-27, 27, 42.5, &center);
+    // move_straight(27.5, 69.0, &center, MOTOR_BRAKE_BRAKE);
+
+    // pros::delay(250);
+    // turn2(30, -30, 140.5, &center);
+    // pros::delay(70);
+
+    // turn2(27, -27, 209.5, &center);
+
+
     side_piston.set_value(1);
-    pros::delay(20);
+    pros::delay(21);
     side2_piston.set_value(1);
-    pros::delay(20);
+    pros::delay(21);
     side4_piston.set_value(1);
-    pros::delay(20);
+    pros::delay(21);
     side5_piston.set_value(1);
-    pros::delay(20);
+    pros::delay(21);
     side6_piston.set_value(1);
-    pros::delay(1000);
+    pros::delay(21);
     expander2_piston.set_value(1);
-    pros::delay(20);
+    pros::delay(21);
     side3_piston.set_value(1);
-    pros::delay(20);
-
+    pros::delay(21);
+    pros::delay(550);
+    move_straight(-5.1, -30.0, &center, MOTOR_BRAKE_BRAKE);
+    move_straight(1.1, 30.0, &center, MOTOR_BRAKE_BRAKE);
 
 
 

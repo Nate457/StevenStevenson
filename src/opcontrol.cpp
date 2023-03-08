@@ -5,7 +5,7 @@
 #include "lib/scoring.hpp"
 
 void opcontrol() {
-	unsigned shootingSpeed = 1640;
+	unsigned shootingSpeed = 1990;
 	pros::Task regulateFlywheelSpeed(regulateFlywheel_o, &shootingSpeed);
 			leveler.set_value(0);
 			expander1_piston.set_value(0);
@@ -75,21 +75,36 @@ void opcontrol() {
 		if(master.get_digital (DIGITAL_DOWN) &&  master.get_digital (DIGITAL_RIGHT))
 		{
 			expander1_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side2_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side4_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side5_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side6_piston.set_value(1);
-			pros::delay(1000);
+			pros::delay(10);
 			expander2_piston.set_value(1);
-			pros::delay(20);
+			pros::delay(10);
 			side3_piston.set_value(1);
-			pros::delay(20);
+			flywheel_state = 0;
+		}
+		if(master.get_digital (DIGITAL_B) &&  master.get_digital (DIGITAL_Y))
+		{
+			expander1_piston.set_value(1);
+			pros::delay(10);
+			side_piston.set_value(1);
+			pros::delay(10);
+			side2_piston.set_value(1);
+			pros::delay(10);
+			side4_piston.set_value(1);
+			pros::delay(10);
+			side5_piston.set_value(1);
+			pros::delay(10);
+			side6_piston.set_value(1);
+			pros::delay(10);
 			flywheel_state = 0;
 		}
 	}  

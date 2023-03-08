@@ -96,6 +96,74 @@ void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, 
     pCentre->heading = imu_sensor.get_heading(); 
 }
 
+void turn2(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre) {
+    int prevErrorHeading = 0, integralHeading = 0;
+    pCentre->desiredHeading = desiredAngle;
+    double currAngle = imu_sensor.get_heading();
+    
+    if (baseLeftVolt > baseRightVolt) {
+        if (currAngle < desiredAngle) {
+            while (currAngle < desiredAngle) { 
+                currAngle = imu_sensor.get_heading();         
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                
+                pros::delay(8);
+            }
+        }
+        else if (currAngle > desiredAngle) {
+            desiredAngle = desiredAngle + (360 - currAngle);
+            currAngle = 0; double prevAngle = imu_sensor.get_heading();
+            
+            while (currAngle + 2 < desiredAngle) {
+                if (imu_sensor.get_heading() - prevAngle < -2) 
+                    prevAngle = imu_sensor.get_heading();
+                currAngle += imu_sensor.get_heading() - prevAngle;
+                
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                
+                prevAngle = imu_sensor.get_heading();  
+                pros::delay(8);
+            }
+        }
+    }
+    else {
+        if (0 <= currAngle && desiredAngle > currAngle) {
+            desiredAngle = -(currAngle + (360 - desiredAngle));
+            currAngle = 0; double prevAngle = imu_sensor.get_heading();
+            
+            while (currAngle - 2 > desiredAngle) {
+                if (imu_sensor.get_heading() - prevAngle > 2) 
+                    prevAngle = imu_sensor.get_heading();
+                currAngle += imu_sensor.get_heading() - prevAngle;
+                
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                
+                prevAngle = imu_sensor.get_heading();
+                pros::delay(8);
+            }
+        }
+        else if (currAngle < 360 && currAngle > desiredAngle) {
+            desiredAngle = desiredAngle - 360;
+            currAngle -= 360;  
+            
+            while (currAngle > desiredAngle) {
+                currAngle = imu_sensor.get_heading() - 360;
+                move(baseLeftVolt + PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading), 
+                        baseRightVolt - PID(currAngle, desiredAngle, 0.5, 0, 0, prevErrorHeading, integralHeading));
+                
+                pros::delay(8);
+            }
+        }
+    }
+    move(MOTOR_BRAKE_BRAKE, MOTOR_BRAKE_BRAKE);
+    pros::delay(100);
+    pCentre->heading = imu_sensor.get_heading(); 
+}
+
+
 /** Moves the robot a given distance forwards or backwards
  * 
  * @param desiredDist the distance to travel, in inches
