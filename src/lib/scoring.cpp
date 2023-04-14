@@ -131,6 +131,9 @@ void regulateFlywheel(void *param) {
         if (currSpeed<desiredSpeed){
         flywheel = 127;
         }
+        else{
+            flywheel = 115+PID2(currSpeed, desiredSpeed, 0.1, 0.08, 0.08, prevError, integral);
+        }
 
         }
         else{

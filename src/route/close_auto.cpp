@@ -12,7 +12,7 @@ void close_a() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2655;
+    unsigned desiredSpeed = 2620;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
@@ -28,8 +28,8 @@ void close_a() {
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
-    desiredSpeed = 2655;
-    pros::delay(350);
+    desiredSpeed = 2620;
+    pros::delay(550);
     shoot(750);
     
 
@@ -39,17 +39,17 @@ void close_a() {
 
 
     //pick up next 3 discs and shoot them
-    desiredSpeed = 2589;
+    desiredSpeed = 2565;
     pros::delay(20);
     turn3(48, -48, 44, &center);
     pros::delay(20);
     move_straight2(43.0,76,3,2, &center);
     pros::delay(20);
-    turn3(-44,44, 323.4, &center);
+    turn3(-44,44, 323.8, &center);
     pros::delay(20);
-    shoot(520);
+    shoot(620);
     center.heading = imu_sensor.get_heading(); 
-    desiredSpeed = 2306; 
+    desiredSpeed = 2436; 
     intake = 127;
     pros::delay(20);
     move_straight2(7.6,  68.0,3,2, &center);
