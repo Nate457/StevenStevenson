@@ -6,9 +6,9 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 // drive train
 pros::Motor leftFrontMotor(11, MOTOR_GEAR_BLUE,1);
 pros::Motor rightFrontMotor(18, MOTOR_GEAR_BLUE, 1);
-pros::Motor leftBackMotor(12, MOTOR_GEAR_BLUE, 1);
+pros::Motor leftBackMotor(13, MOTOR_GEAR_BLUE, 1);
 pros::Motor rightBackMotor(19, MOTOR_GEAR_BLUE, 0);
-pros::Motor leftMidMotor(13, MOTOR_GEAR_BLUE,0); 
+pros::Motor leftMidMotor(12, MOTOR_GEAR_BLUE,0); 
 pros::Motor rightMidMotor(20, MOTOR_GEAR_BLUE, 0); 
 
 // disc mechanisms

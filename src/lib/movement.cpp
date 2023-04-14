@@ -163,6 +163,42 @@ void turn2(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
     pCentre->heading = imu_sensor.get_heading(); 
 }
 
+void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre){
+    double off_set = 180 - desiredAngle;
+    pCentre->desiredHeading = desiredAngle;
+    double current_angle = imu_sensor.get_heading();
+    double previous_angle = imu_sensor.get_heading();
+    while (abs(current_angle+off_set-180) > 1){
+    if (abs(current_angle+off_set-180) > 1.1*abs(previous_angle+off_set-180))
+    {
+        break;
+    }
+        move(baseLeftVolt*(0.55+abs(current_angle+off_set-180)/480), baseRightVolt*(0.55+abs(current_angle+off_set-180)/480));
+        previous_angle = current_angle;
+        current_angle = imu_sensor.get_heading();
+        pros::delay(15);
+    };
+    move(-baseLeftVolt/6, -baseRightVolt/6);
+    pros::delay(90);
+    move(MOTOR_BRAKE_HOLD, MOTOR_BRAKE_HOLD);
+    pros::delay(190);
+    current_angle = imu_sensor.get_heading();
+    pros::delay(34);
+    if (abs(current_angle+off_set-180) > 0.8)
+    {
+     move(-baseLeftVolt/1.5, -baseRightVolt/1.5);
+      while (abs(current_angle+off_set-180) > 0.6){
+        current_angle = imu_sensor.get_heading();
+        pros::delay(15);
+    };   
+    move(-baseLeftVolt/6, -baseRightVolt/6);
+    pros::delay(90);
+    move(MOTOR_BRAKE_HOLD, MOTOR_BRAKE_HOLD);
+    }
+    pros::delay(60);
+    pCentre->heading = imu_sensor.get_heading(); 
+    
+    };
 
 /** Moves the robot a given distance forwards or backwards
  * 
@@ -261,3 +297,111 @@ void move_straight(const int volt, vector* pCenter) {
     pros::delay(100);
     pCenter->heading = imu_sensor.get_heading();
 }
+
+void move_straight2(const double dist, const int baseVolt, const double accel, const double deccel, vector *pCenter) {
+    double duck = 8.55;
+
+    double prevLeftPos = leftMidMotor.get_position(), prevRightPos = rightMidMotor.get_position();   // the previous motor encoder value of each side of the drive train
+    double currDist = 0;
+
+    int prevErrorDist = 0, integralDist = 0;
+    int prevErrorHeading = 0, integralHeading = 0;
+    if (dist > 0)
+    {
+    while (currDist < dist/accel){
+        double volt = baseVolt * (1 + currDist/2/dist/accel);
+        if (pCenter->desiredHeading > 180){
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720 *duck;
+        pros::delay(8);
+    }
+
+    while (currDist < dist - dist/deccel){
+        if (pCenter->desiredHeading > 180){
+            move(baseVolt + PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                baseVolt - PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(baseVolt + PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                baseVolt  - PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720* duck;
+        pros::delay(8);
+    }
+    
+    while (currDist < dist){
+        double volt = baseVolt * (0.55 - 2.6*(dist-currDist)/(dist/deccel));
+        if (volt < baseVolt/2.0)
+        {
+        volt = baseVolt/2.0;
+        }
+        if (pCenter->desiredHeading > 180){
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.8, 0.00, 0.2, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.8, 0.00, 0.2, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading));
+        }        
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720*duck;
+        pros::delay(8);
+    }
+    }
+    else{
+        while (currDist > dist/accel){
+        double volt = baseVolt * (1 + currDist/2/dist/accel);
+        if (pCenter->desiredHeading > 180){
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.0, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.0, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.0, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.0, prevErrorHeading, integralHeading));
+        }
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720 *duck;
+        pros::delay(8);
+    }
+
+    while (currDist > dist - dist/deccel){
+        if (pCenter->desiredHeading > 180){
+            move(baseVolt + PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                baseVolt - PID(get_heading(), pCenter->desiredHeading-360, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(baseVolt + PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading), 
+                baseVolt  - PID(get_heading(), pCenter->desiredHeading, 0.95, 0.00, 0.4, prevErrorHeading, integralHeading));
+        }
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720* duck;
+        pros::delay(8);
+    }
+    
+    while (currDist > dist){
+        double volt = baseVolt * (0.55 - 2.6*(dist-currDist)/(dist/deccel));
+        if (volt > baseVolt/2.0)
+        {
+        volt = baseVolt/2.0;
+        }
+        if (pCenter->desiredHeading > 180){
+            move(volt + PID(get_heading(), pCenter->desiredHeading-360, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading-360, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading));
+        }
+        else{
+            move(volt + PID(get_heading(), pCenter->desiredHeading, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading), 
+                volt - PID(get_heading(), pCenter->desiredHeading, 0.8, 0.00, 0.0, prevErrorHeading, integralHeading));
+        }        
+        currDist = (leftMidMotor.get_position()-prevLeftPos + rightMidMotor.get_position()-prevRightPos)/720*duck;
+        pros::delay(8);
+    }
+    }
+    move(-baseVolt/6, -baseVolt/6);
+    pros::delay(60);
+    move(MOTOR_BRAKE_BRAKE, MOTOR_BRAKE_BRAKE);
+}
+
+//20.4862499 rotation * inches/de

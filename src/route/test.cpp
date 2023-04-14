@@ -9,15 +9,20 @@ using namespace pros;
 
 void test() {
     // initial setup
-       vector center = {};
+
+    vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2720;
+    unsigned desiredSpeed = 2830;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
-
-    // shoot preloads and turn roller
-    move_straight(50, 80, &center);
-    regulate_shooting_speed.remove();
-    regulate_shooting_speed = (pros::task_t)NULL;
-
+    intake=127;
+    move_straight2(28.0, 71, 3, 2, &center);
 }
+//move_straight2(const double dist, const int baseVolt, const double accel, const double deccel, vector *pCenter)
+//823
+//1664
+
+//423/360 rotations
+
+//-1192
+//

@@ -70,14 +70,14 @@ void turn_rollerN(bool full)
     double startEncoder = intake.get_position();
     if (full){
         while (intake.get_position() < 810 + startEncoder){
-            intake = 122;
+            intake = 127;
         }
     intake = 0;
     move(0,0);
     }
     else {
      while(intake.get_position() < 443 + startEncoder){
-        intake = 122;
+        intake = 127;
         }
 
     intake = 0;
@@ -127,7 +127,15 @@ void regulateFlywheel(void *param) {
         desiredSpeed = *static_cast<unsigned*>(param);
         //master.print(0, 0, "%f", currSpeed);
         currSpeed = std::abs(flywheel.get_actual_velocity()) * motorToFlywheel;
-        flywheel = 113+PID2(currSpeed, desiredSpeed, 0.13, 0.08, 0.08, prevError, integral);
+        if (abs(int(currSpeed-desiredSpeed))>200){   
+        if (currSpeed<desiredSpeed){
+        flywheel = 127;
+        }
+
+        }
+        else{
+        flywheel = 115+PID2(currSpeed, desiredSpeed, 0.1, 0.08, 0.08, prevError, integral);
+        }
         pros::delay(21);
     }
 }
@@ -144,7 +152,7 @@ void regulateFlywheel_o(void *param) {
         desiredSpeed = *static_cast<unsigned*>(param);
         //master.print(0, 0, "%f", currSpeed);
         currSpeed = std::abs(flywheel.get_actual_velocity()) * motorToFlywheel;
-        flywheel = 115+PID(currSpeed, desiredSpeed, 0.145, 0.011, 0.001, prevError, integral);
+        flywheel = 119+PID(currSpeed, desiredSpeed, 0.185, 0.011, 0.001, prevError, integral);
         pros::delay(15);
     }
 }
@@ -170,10 +178,10 @@ void regulateFlywheel_2(void *param) {
 */
 void shoot(const unsigned gateDelay) {
     intake = 0;
-    indexer.move_relative(-118, -580);
+    indexer.move_relative(-218, -580);
 	pros::delay(gateDelay);
-    indexer.move_relative(-118, -580);
+    indexer.move_relative(-248, -580);
 	pros::delay(gateDelay);
-    indexer.move_relative(-118, -580);
+    indexer.move_relative(-298, -580);
 	pros::delay(gateDelay+20);
 }
