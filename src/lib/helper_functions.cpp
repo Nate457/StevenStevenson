@@ -23,6 +23,8 @@ inline void reset_drive_train() {
 /** Setups the robot for autonomous by resetting motors and sensors
 */
 void setup_robot() {
+    leftr.reset();
+    rightr.reset();
     imu_sensor.reset();
     pros::delay(2000);
     imu_sensor.tare_heading();
@@ -37,8 +39,8 @@ void setup_robot() {
  * @return the distance travelled by the motors, in inches
  */
 double get_dist_travelled() {
-    double degreesTravelled = (leftBackMotor.get_position() + rightBackMotor.get_position()) / 2;
-    return degreesTravelled * motorToWheelRatio / 360 * (3.14159*wheelDiam);
+    double degreesTravelled = (rightr.get_position() + leftr.get_position());
+    return degreesTravelled * motorToWheelRatio / 720 * (3.14159*wheelDiam);
 }
 
 /** Gets the heading of the robot from its gyro sensor

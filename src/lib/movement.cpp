@@ -173,7 +173,7 @@ void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
     {
         break;
     }
-        move(baseLeftVolt*(0.37+abs(current_angle+off_set-180)/260), baseRightVolt*(0.37+abs(current_angle+off_set-180)/260));
+        move(baseLeftVolt*(0.35+abs(current_angle+off_set-180)/250), baseRightVolt*(0.35+abs(current_angle+off_set-180)/250));
         previous_angle = current_angle;
         current_angle = imu_sensor.get_heading();
         pros::delay(14);
@@ -186,7 +186,7 @@ void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
     pros::delay(34);
     if (abs(current_angle+off_set-180) > 0.8)
     {
-     move(-(baseLeftVolt/1.5+sgn(baseLeftVolt)*6), -(baseRightVolt/1.5+sgn(baseRightVolt)*6));
+     move(-(baseLeftVolt/1.5+sgn(baseLeftVolt)*4), -(baseRightVolt/1.5+sgn(baseRightVolt)*4));
       while (abs(current_angle+off_set-180) > 0.6){
         current_angle = imu_sensor.get_heading();
         pros::delay(14);

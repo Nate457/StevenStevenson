@@ -37,7 +37,8 @@ extern pros::ADIDigitalOut side5_piston;
 extern pros::ADIDigitalOut side6_piston;
 extern pros::ADIDigitalOut flywheel_piston;
 extern pros::ADIDigitalOut leveler;
-
+extern pros::Rotation rightr;
+extern pros::Rotation leftr;
 
 extern int autonSelection;
 
