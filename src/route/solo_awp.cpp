@@ -12,7 +12,7 @@ void solo_awp() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2459;
+    unsigned desiredSpeed = 2429;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
@@ -21,15 +21,15 @@ void solo_awp() {
 
 
     //pick up next 3 discs and shoot them
-    turn3(60, 15, 48.5, &center);
+    turn3(70, 15, 48.5, &center);
     intake=127;
-    pros::delay(25);
+    pros::delay(35);
     move_straight2(35.0,80, 3,3, &center);
-    pros::delay(15);
+    pros::delay(35);
     turn3(-44,44, 319.4, &center);
-    pros::delay(15);
+    pros::delay(35);
     shoot(500);
-    desiredSpeed = 2865;
+    desiredSpeed = 2895;
     intake = 127;
     turn3(44, -44, 40.4, &center);
     pros::delay(15);
