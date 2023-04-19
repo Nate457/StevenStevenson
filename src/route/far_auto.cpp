@@ -41,8 +41,8 @@ void far_auto() {
     move_straight2(62.1, 82, 3, 2, &center);
     pros::delay(20);
     move_straight2(-10.40, -82, 3, 2, &center);
-    pros::delay(120);
-    turn3(52, -52, 129.15, &center);
+    pros::delay(20);
+    turn3(55, -55, 128.15, &center);
     pros::delay(20);
     shoot(410);
     desiredSpeed = 2455;

@@ -191,7 +191,8 @@ void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
         current_angle = imu_sensor.get_heading();
         pros::delay(14);
     };   
-    move(-baseLeftVolt/6, -baseRightVolt/6);
+
+    move(baseLeftVolt/6, baseRightVolt/6);
     pros::delay(90);
     move(MOTOR_BRAKE_HOLD, MOTOR_BRAKE_HOLD);
     }
