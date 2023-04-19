@@ -173,7 +173,7 @@ void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
     {
         break;
     }
-        move(baseLeftVolt*(0.35+abs(current_angle+off_set-180)/250), baseRightVolt*(0.35+abs(current_angle+off_set-180)/250));
+        move(baseLeftVolt*(0.45+abs(current_angle+off_set-180)/290), baseRightVolt*(0.45+abs(current_angle+off_set-180)/290));
         previous_angle = current_angle;
         current_angle = imu_sensor.get_heading();
         pros::delay(14);
@@ -183,13 +183,13 @@ void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle,
     move(MOTOR_BRAKE_HOLD, MOTOR_BRAKE_HOLD);
     pros::delay(190);
     current_angle = imu_sensor.get_heading();
-    pros::delay(34);
+    pros::delay(54);
     if (abs(current_angle+off_set-180) > 0.8)
     {
-     move(-(baseLeftVolt/1.5+sgn(baseLeftVolt)*4), -(baseRightVolt/1.5+sgn(baseRightVolt)*4));
-      while (abs(current_angle+off_set-180) > 0.6){
+     move(-(baseLeftVolt/1.7), -(baseRightVolt/1.7));
+      while (abs(current_angle+off_set-180) > 0.8){
         current_angle = imu_sensor.get_heading();
-        pros::delay(14);
+        pros::delay(26);
     };   
 
     move(baseLeftVolt/6, baseRightVolt/6);

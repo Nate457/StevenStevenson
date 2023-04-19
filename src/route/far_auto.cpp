@@ -16,16 +16,16 @@ void far_auto() {
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // turn roller
-    move_straight2(-13.5, -75, 3, 2, &center);
+    move_straight2(-10.8, -65, 3, 2, &center);
     pros::delay(15);
     turn3(39, -78, 101.5, &center);
     pros::delay(15);
-    move_straight2(-3.2, -65, 3, 2, &center);
+    move_straight2(-2.8, -45, 3, 2, &center);
     pros::delay(15);
     turn_rollerN(false); pros::delay(30);
     intake=127;
-    move_straight2(12.9, 75, 3, 2, &center);
-    pros::delay(890);
+    move_straight2(9.3, 71, 3, 2, &center);
+    pros::delay(690);
     while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
@@ -34,21 +34,21 @@ void far_auto() {
     shoot(540);
     desiredSpeed = 2545;
     intake=127;
-    move_straight2(-9.5, -80, 3, 2, &center);
+    move_straight2(-8.0, -78, 3, 2, &center);
     pros::delay(30);
-    turn3(-62, 62, 40.9, &center);
+    turn3(-55, 55, 44.2, &center);
     pros::delay(20);
     move_straight2(62.1, 82, 3, 2, &center);
     pros::delay(20);
-    move_straight2(-10.40, -82, 3, 2, &center);
-    pros::delay(20);
-    turn3(55, -55, 128.15, &center);
+    move_straight2(-10.10, -82, 3, 2, &center);
+    pros::delay(50);
+    turn3(53, -53, 128.45, &center);
     pros::delay(20);
     shoot(410);
     desiredSpeed = 2455;
     intake=127;
-    move_straight2(4.9, 82, 3, 2, &center);
-    pros::delay(840);
+    move_straight2(3.2, 75, 3, 2, &center);
+    pros::delay(940);
     shoot(350);
 
     regulate_shooting_speed.remove();

@@ -12,7 +12,7 @@
 #include <math.h>
 
 const double wheelDiam = 3.25;
-const double motorToWheelRatio = 0.7;
+const double motorToWheelRatio = 0.66666;
 const double robotWidth = 12;
 
 inline void reset_drive_train() {
