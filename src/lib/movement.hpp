@@ -18,7 +18,7 @@ extern void move_straight(const int volt, vector *pCenter);
 extern void turn(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre);
 extern void turn2(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre);
 extern void turn3(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre);
-
+extern void turn4(const int baseLeftVolt, const int baseRightVolt, double desiredAngle, vector *pCentre);
 extern void move_straight2(const double dist, const int baseVolt, const double accel, const double deccel, vector *pCenter);
 extern void ms2(const double dist, const int baseVolt, const double accel, const double deccel, vector *pCenter);
 
