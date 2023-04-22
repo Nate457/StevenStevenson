@@ -12,7 +12,7 @@ void close_a() {
     vector center = {};
     leveler.set_value(1);
     unsigned timeElapsed = 0;
-    unsigned desiredSpeed = 2620;
+    unsigned desiredSpeed = 2580;
     pros::Task regulate_shooting_speed(regulateFlywheel, &desiredSpeed);
 
     // shoot preloads and turn roller
@@ -20,8 +20,8 @@ void close_a() {
     move_straight2(6.6, 60.0,3,2, &center);
     intake=127;
     delay(20);
-    turn3(-40, 40, 348.0, &center);
-    move_straight2(5.2,  69.0,3,2, &center);
+    turn3(-38, 38, 348.0, &center);
+    move_straight2(4.1,  50.0,3,2, &center);
     
     pros::delay(50);
 
@@ -29,31 +29,31 @@ void close_a() {
      while (desiredSpeed != INT16_MAX) {
         delay(15);
     }
-    desiredSpeed = 2620;
+    desiredSpeed = 2580;
     pros::delay(550);
-    shoot(750);
+    shoot(650);
     
 
     intake = 127;
     pros::delay(30);
-    move_straight2(-10.8,-89,3,2, &center);
+    move_straight2(-8.4,-89,3,2, &center);
 
 
     //pick up next 3 discs and shoot them
     desiredSpeed = 2565;
     pros::delay(20);
-    turn3(40, -40, 44, &center);
+    turn3(40, -40, 42, &center);
     pros::delay(20);
-    move_straight2(41.0,76,3,2, &center);
+    move_straight2(41.5,76,3,2, &center);
     pros::delay(20);
-    turn3(-44,44, 325.4, &center);
+    turn3(-44,44, 326.4, &center);
     pros::delay(20);
     shoot(620);
     center.heading = imu_sensor.get_heading(); 
     desiredSpeed = 2436; 
     intake = 127;
     pros::delay(20);
-    move_straight2(7.6,  68.0,3,2, &center);
+    move_straight2(7.0,  58.0,3,2, &center);
     pros::delay(1240);
     shoot(490);
 
